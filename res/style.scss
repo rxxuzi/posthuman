@@ -1,0 +1,80 @@
+$circle-size: 70px;
+$active-circle-size: 100px;
+$circle-color-red: red;
+$circle-color-green: green;
+$circle-color-blue: blue;
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+#button-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+
+  .circle-button {
+    border: none;
+    border-radius: 50%;
+    width: $circle-size;
+    height: $circle-size;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.5s ease-in-out, width 0.5s ease-in-out, height 0.5s ease-in-out;
+
+
+    &.active {
+      width: $active-circle-size;
+      height: $active-circle-size;
+      transform: scale(1.3);
+      transition: transform 0.3s ease;
+    }
+
+    &.red {
+      background-color: $circle-color-red;
+    }
+
+    &.green {
+      background-color: $circle-color-green;
+    }
+
+    &.blue {
+      background-color: $circle-color-blue;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+#next-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  #next {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: grey;
+    }
+  }
+
+  .post {
+    background-color: darkblue;
+    &:hover {
+      background-color: blue;
+    }
+  }
+}
