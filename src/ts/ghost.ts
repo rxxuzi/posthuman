@@ -30,7 +30,7 @@ const isSelectionValid = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const buttonContainer = document.getElementById('button-container');
+    const buttonContainer = document.getElementById('bubbles');
     if (!buttonContainer) throw new Error('buttonContainer not found');
 
     const addButtons = (buttonValues: string[], color: string) => {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buttonValues.forEach(value => {
             const button = document.createElement('button');
             button.textContent = value;
-            button.classList.add('circle-button', color);
+            button.classList.add('bubble', color);
             button.addEventListener('click', () => toggleButton(button, color));
             buttonContainer.appendChild(button);
         });
@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        console.log("Red : " + selectedRedButtons + ", Green : " + selectedGreenButtons + ", Blue :" + selectedBlueButtons );
         updateNextButtonStyle();
     });
 

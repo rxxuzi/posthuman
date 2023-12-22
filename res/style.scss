@@ -8,12 +8,12 @@ body {
   font-family: Arial, sans-serif;
 }
 
-#button-container {
+#bubbles {
   display: flex;
   justify-content: space-evenly;
   margin: 20px 0;
 
-  .circle-button {
+  .bubble {
     border: none;
     border-radius: 50%;
     width: $circle-size;
