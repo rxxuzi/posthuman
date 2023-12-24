@@ -1,0 +1,71 @@
+$type: #14ffb3;
+$time: #43ceff;
+$feat: #2334fa;
+$tag: #9216fa;
+$next: #ef26ef;
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #222;
+}
+
+#app {
+  max-width: 85.71%;
+  margin: 0 auto;
+  background-color: #333;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 基本のボタンスタイル */
+button {
+  width: 80px;
+  height: 80px;
+  margin: 15px;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  &.selected {
+    transform: scale(1.15);
+  }
+}
+
+/* 各種類のボタンの色 */
+#typeSelection button {
+  background-color: $type;
+}
+
+#timeSelection button {
+  background-color: $time;
+}
+
+#featureSelection button {
+  background-color: $feat;
+}
+
+#selectedTags button {
+  background-color: $tag;
+}
+
+#nextButton {
+  background-color: $next;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+#selectedTags {
+  margin-top: 20px;
+}
+

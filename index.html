@@ -2,15 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>posthuman</title>
-    <link rel="stylesheet" href="./res/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Selector</title>
+    <link rel="stylesheet" href="./res/main.css">
 </head>
 <body>
-<div id="bubbles">
+<div id="app">
+    <!-- Type Selection -->
+    <div id="typeSelection">
+        <button id="typeE">E</button>
+        <button id="typeO">O</button>
+    </div>
+
+    <!-- Time Selection (hidden initially) -->
+    <div id="timeSelection" style="display:none;">
+        <button id="timeD">d</button>
+        <button id="timeW">w</button>
+        <button id="timeM">m</button>
+        <button id="timeY">y</button>
+    </div>
+
+    <!-- Feature Selection (hidden initially) -->
+    <div id="featureSelection" style="display:none;">
+        <!-- Buttons for each feature will be generated dynamically -->
+    </div>
+
+    <!-- Display Selected Tags -->
+    <div id="selectedTags"></div>
+
+    <button id="nextButton" style="display:none;">NEXT</button>
 </div>
-<div id="next-button-container">
-    <button id="next">NEXT</button>
-</div>
-<script src="src/js/ghost.js"></script>
+
+<script src="src/js/app.js"></script>
 </body>
 </html>
