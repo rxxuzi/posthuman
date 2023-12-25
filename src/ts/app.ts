@@ -26,13 +26,13 @@ fetch('./data/dummy.json')
     });
 
 // ボタンを動的に生成する関数
-function createButtons(container: HTMLElement, options: string[], onClick: (option: string) => void, incompatibleOptions: string[] = []) {
+function createButtons(container: HTMLElement, options: string[], onClick: (option: string, button: HTMLButtonElement) => void) {
     container.innerHTML = '';
     options.forEach(option => {
-        const button = document.createElement('button');
-        button.textContent = option;
-        button.addEventListener('click', () => onClick(option));
-        if (!incompatibleOptions.includes(option)) {
+        if (option) { // 空のオプションを排除するチェックを追加
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.addEventListener('click', () => onClick(option, button));
             container.appendChild(button);
         }
     });
@@ -53,27 +53,31 @@ function initializeTypeButtons(fruits: { [key: string]: FruitData }) {
 }
 
 // Type を選択した際の処理
-function selectType(type: string) {
+function selectType(type: string, button: HTMLButtonElement) {
     selectedType = type;
+    updateSelectedClass(typeSelection, button);
     const filteredFruits = Object.values(fruits).filter(fruit => fruit.type === type);
     const times = Array.from(new Set(filteredFruits.flatMap(fruit => fruit.time)));
     createButtons(timeSelection, times, selectTime);
 }
 
 // Time を選択した際の処理
-function selectTime(time: string) {
+function selectTime(time: string, button : HTMLButtonElement) {
     selectedTime = time;
+    updateSelectedClass(timeSelection, button);
     const filteredFruits = Object.values(fruits).filter(fruit => fruit.time.includes(time));
     const features = Array.from(new Set(filteredFruits.flatMap(fruit => fruit.feature)));
     createButtons(featureSelection, features, selectFeature);
 }
 
 // Feature を選択した際の処理
-function selectFeature(feature: string) {
+function selectFeature(feature: string, button : HTMLButtonElement) {
     if (selectedFeatures.has(feature)) {
-        selectedFeatures.delete(feature); // 選択解除
+        selectedFeatures.delete(feature);
+        button.classList.remove('selected'); // 選択解除時にクラスを削除
     } else {
-        selectedFeatures.add(feature); // 選択
+        selectedFeatures.add(feature);
+        button.classList.add('selected'); // 選択時にクラスを追加
     }
     updateFeatureButtons();
     updateNextButtonVisibility();
@@ -85,7 +89,8 @@ function updateFeatureButtons() {
     const incompatibleFeatures = selectedFeatures.size > 0
         ? allFeatures.filter(f => !selectedFeatures.has(f))
         : [];
-    createButtons(featureSelection, allFeatures, selectFeature, incompatibleFeatures);
+
+    createButtons(featureSelection, allFeatures, selectFeature);
 }
 
 // Next ボタンの表示を更新する関数
@@ -108,18 +113,20 @@ function displayTags() {
     const tags = Object.keys(fruits)
         .filter(key =>
             fruits[key].type === selectedType &&
-            selectedTime !== null && fruits[key].time.includes(selectedTime) &&
+            selectedTime !== null && fruits[key].time.includes(selectedTime!) &&
             Array.from(selectedFeatures).every(feature => fruits[key].feature.includes(feature))
         );
     createButtons(selectedTags, tags, selectTag);
 }
 
 // タグを選択した際の処理
-function selectTag(tag: string) {
+function selectTag(tag: string, button : HTMLButtonElement) {
     if (selections.includes(tag)) {
-        selections = selections.filter(t => t !== tag); // 選択解除
+        selections = selections.filter(t => t !== tag);
+        button.classList.remove('selected'); // クラスを削除
     } else {
-        selections.push(tag); // 選択
+        selections.push(tag);
+        button.classList.add('selected'); // クラスを追加
     }
     updateFinalNextButtonVisibility();
 }
