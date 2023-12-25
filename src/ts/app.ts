@@ -5,122 +5,139 @@ type FruitData = {
 };
 
 // Elements
-const typeSelection = document.getElementById('typeSelection');
-const timeSelection = document.getElementById('timeSelection');
-const featureSelection = document.getElementById('featureSelection');
-const nextButton = document.getElementById('nextButton');
-const selectedTags = document.getElementById('selectedTags');
+const typeSelection = document.getElementById('typeSelection') as HTMLElement;
+const timeSelection = document.getElementById('timeSelection') as HTMLElement;
+const featureSelection = document.getElementById('featureSelection') as HTMLElement;
+const selectedTags = document.getElementById('selectedTags') as HTMLElement;
+const nextButton = document.getElementById('nextButton') as HTMLElement;
 
 let selectedType: string | null = null;
 let selectedTime: string | null = null;
 let selectedFeatures: Set<string> = new Set();
-let selections: string[] = []; // 選択された項目の配列
-let tagSelections: string[] = []; // 選択されたタグの配列
+let selections: string[] = []; // 選択されたタグの配列
+let fruits: { [key: string]: FruitData };
 
 // データを非同期で読み込む
 fetch('./data/dummy.json')
     .then(response => response.json())
-    .then((fruits: { [key: string]: FruitData }) => {
-        initializeApp(fruits);
+    .then((fruitsData: { [key: string]: FruitData }) => {
+        fruits = fruitsData;
+        initializeTypeButtons(fruits);
     });
 
-function initializeApp(fruits: { [key: string]: FruitData }) {
-    // Type ボタンのイベントリスナー
-    typeSelection?.addEventListener('click', (event) => {
-        if (event.target instanceof HTMLButtonElement && selectedType !== event.target.id) {
-            console.log("Type button clicked:", event.target.id);
-            selectedType = event.target.id === 'typeE' ? 'E' : 'O';
-            selections = [selectedType]; // 選択をリセットして新しいタイプを配列に追加
-            timeSelection!.style.display = 'block';
-            nextButton!.style.display = 'none';
+// ボタンを動的に生成する関数
+function createButtons(container: HTMLElement, options: string[], onClick: (option: string) => void, incompatibleOptions: string[] = []) {
+    container.innerHTML = '';
+    options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.addEventListener('click', () => onClick(option));
+        if (!incompatibleOptions.includes(option)) {
+            container.appendChild(button);
         }
     });
+}
 
-    // Time ボタンのイベントリスナー
-    timeSelection?.addEventListener('click', (event) => {
-        if (event.target instanceof HTMLButtonElement && selectedTime !== event.target.id) {
-            console.log("Time button clicked:", event.target.id);
-            selectedTime = event.target.id.replace('time', '').toLowerCase();
-            selections.push(selectedTime); // Time を配列に追加
-            updateFeatureButtons(fruits);
-            featureSelection!.style.display = 'block';
-        }
+// 選択されたボタンに .selected クラスを追加する関数
+function updateSelectedClass(container: HTMLElement, selectedButton: HTMLButtonElement) {
+    container.querySelectorAll('button').forEach(button => {
+        button.classList.remove('selected');
     });
+    selectedButton.classList.add('selected');
+}
 
-    // Feature ボタンの更新処理
-    function updateFeatureButtons(fruits: { [key: string]: FruitData }) {
-        featureSelection!.innerHTML = '';
-        let features = new Set<string>();
-        for (const fruit in fruits) {
-            if (fruits[fruit].type === selectedType && fruits[fruit].time.includes(selectedTime!)) {
-                fruits[fruit].feature.forEach(feature => features.add(feature));
-            }
-        }
-        features.forEach(feature => {
-            const button = document.createElement('button');
-            button.textContent = feature;
-            button.addEventListener('click', () => selectFeature(feature));
-            featureSelection!.appendChild(button);
-        });
+// typeSelection ボタンの初期化
+function initializeTypeButtons(fruits: { [key: string]: FruitData }) {
+    const types = Array.from(new Set(Object.values(fruits).map(fruit => fruit.type)));
+    createButtons(typeSelection, types, selectType);
+}
+
+// Type を選択した際の処理
+function selectType(type: string) {
+    selectedType = type;
+    const filteredFruits = Object.values(fruits).filter(fruit => fruit.type === type);
+    const times = Array.from(new Set(filteredFruits.flatMap(fruit => fruit.time)));
+    createButtons(timeSelection, times, selectTime);
+}
+
+// Time を選択した際の処理
+function selectTime(time: string) {
+    selectedTime = time;
+    const filteredFruits = Object.values(fruits).filter(fruit => fruit.time.includes(time));
+    const features = Array.from(new Set(filteredFruits.flatMap(fruit => fruit.feature)));
+    createButtons(featureSelection, features, selectFeature);
+}
+
+// Feature を選択した際の処理
+function selectFeature(feature: string) {
+    if (selectedFeatures.has(feature)) {
+        selectedFeatures.delete(feature); // 選択解除
+    } else {
+        selectedFeatures.add(feature); // 選択
     }
+    updateFeatureButtons();
+    updateNextButtonVisibility();
+}
 
-    // Feature の選択処理
-    function selectFeature(feature: string) {
-        console.log("Feature button clicked:", feature);
-        if (selectedFeatures.has(feature)) {
-            selectedFeatures.delete(feature);
-            selections.splice(selections.indexOf(feature), 1); // Feature を配列から削除
-        } else {
-            selectedFeatures.add(feature);
-            selections.push(feature); // Feature を配列に追加
-        }
-        nextButton!.style.display = 'block';
-    }
+// Feature ボタンを更新する関数
+function updateFeatureButtons() {
+    const allFeatures = Array.from(new Set(Object.values(fruits).flatMap(fruit => fruit.feature)));
+    const incompatibleFeatures = selectedFeatures.size > 0
+        ? allFeatures.filter(f => !selectedFeatures.has(f))
+        : [];
+    createButtons(featureSelection, allFeatures, selectFeature, incompatibleFeatures);
+}
 
-    function selectTag(tag: string, event: Event) {
-        console.log("Tag button clicked:", tag);
-        const clickedButton = event.target as HTMLButtonElement; // クリックされたボタンを取得
-        if (!tagSelections.includes(tag)) {
-            tagSelections.push(tag); // タグを配列に追加
-            clickedButton.classList.add('selected'); // 押されたボタンに 'selected' クラスを追加
-        }
-        console.log("Tag selections:", tagSelections);
-        if (tagSelections.length > 0) {
-            nextButton!.style.display = 'block'; // タグが1つ以上選択されたら NEXT ボタンを表示
-        }
-    }
-
-    // NEXTボタンのイベントリスナー
-    nextButton?.addEventListener('click', () => {
-        console.log("NEXT button clicked");
-        if (tagSelections.length > 0) {
-            alert(`選択されたタグ: ${tagSelections.join(', ')} , ${selections.join(', ')}`); // タグ選択時のみアラート表示
-            tagSelections = []; // タグ選択をリセット
-        } else {
-            updateSelectedTags(fruits); // 通常のタグ更新処理
-        }
-        nextButton!.style.display = 'none';
-    });
-
-    // 選択されたタグの表示更新
-    function updateSelectedTags(fruits: { [key: string]: FruitData }) {
-        selectedTags!.innerHTML = '';
-        let matchingFruits = new Set<string>();
-        for (const fruit in fruits) {
-            if (fruits[fruit].type === selectedType && fruits[fruit].time.includes(selectedTime!)) {
-                let allFeaturesMatch = Array.from(selectedFeatures).every(feature => fruits[fruit].feature.includes(feature));
-                if (allFeaturesMatch) {
-                    matchingFruits.add(fruit);
-                }
-            }
-        }
-        matchingFruits.forEach(fruit => {
-            const tagButton = document.createElement('button');
-            tagButton.textContent = fruit;
-            tagButton.classList.add('tagButton');
-            tagButton.addEventListener('click', (event) => selectTag(fruit, event));
-            selectedTags!.appendChild(tagButton);
-        });
+// Next ボタンの表示を更新する関数
+function updateNextButtonVisibility() {
+    if (selectedFeatures.size > 0) {
+        nextButton.style.display = 'block';
+        nextButton.addEventListener('click', onFeatureNext);
+    } else {
+        nextButton.style.display = 'none';
     }
 }
+
+// Feature の Next ボタンを押した際の処理
+function onFeatureNext() {
+    displayTags();
+}
+
+// タグを表示する関数
+function displayTags() {
+    const tags = Object.keys(fruits)
+        .filter(key =>
+            fruits[key].type === selectedType &&
+            selectedTime !== null && fruits[key].time.includes(selectedTime) &&
+            Array.from(selectedFeatures).every(feature => fruits[key].feature.includes(feature))
+        );
+    createButtons(selectedTags, tags, selectTag);
+}
+
+// タグを選択した際の処理
+function selectTag(tag: string) {
+    if (selections.includes(tag)) {
+        selections = selections.filter(t => t !== tag); // 選択解除
+    } else {
+        selections.push(tag); // 選択
+    }
+    updateFinalNextButtonVisibility();
+}
+
+// 最終的な Next ボタンの表示を更新する関数
+function updateFinalNextButtonVisibility() {
+    if (selections.length > 0) {
+        nextButton.style.display = 'block';
+        nextButton.removeEventListener('click', onFeatureNext);
+        nextButton.addEventListener('click', onFinalNext);
+    } else {
+        nextButton.style.display = 'none';
+    }
+}
+
+// 最終的な Next ボタンを押した際の処理
+function onFinalNext() {
+    alert(`Selected: ${selections.join(', ')}`);
+}
+
 
