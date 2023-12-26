@@ -71,6 +71,7 @@ function selectTime(time: string, button : HTMLButtonElement) {
 }
 
 // Feature を選択した際の処理
+//TODO : Featureが選択解除されたときのロジックの修正 NEXTに進めないバグ
 function selectFeature(feature: string, button : HTMLButtonElement) {
     if (selectedFeatures.has(feature)) {
         selectedFeatures.delete(feature);
@@ -79,18 +80,26 @@ function selectFeature(feature: string, button : HTMLButtonElement) {
         selectedFeatures.add(feature);
         button.classList.add('selected'); // 選択時にクラスを追加
     }
+
+    console.log("Selected Features:", Array.from(selectedFeatures));
+
     updateFeatureButtons();
     updateNextButtonVisibility();
 }
 
 // Feature ボタンを更新する関数
 function updateFeatureButtons() {
-    const allFeatures = Array.from(new Set(Object.values(fruits).flatMap(fruit => fruit.feature)));
-    const incompatibleFeatures = selectedFeatures.size > 0
-        ? allFeatures.filter(f => !selectedFeatures.has(f))
-        : [];
+    // 選択された type と time に合致するフルーツのみをフィルタリング
+    const filteredFruits = Object.values(fruits).filter(fruit =>
+        selectedType !== null && selectedTime !== null &&
+        fruit.type === selectedType && fruit.time.includes(selectedTime)
+    );
 
-    createButtons(featureSelection, allFeatures, selectFeature);
+    // 初回のみ feature ボタンを生成
+    if (featureSelection.innerHTML === '') {
+        const availableFeatures = Array.from(new Set(filteredFruits.flatMap(fruit => fruit.feature)));
+        createButtons(featureSelection, availableFeatures, selectFeature);
+    }
 }
 
 // Next ボタンの表示を更新する関数
@@ -104,6 +113,7 @@ function updateNextButtonVisibility() {
 }
 
 // Feature の Next ボタンを押した際の処理
+// FIXME
 function onFeatureNext() {
     displayTags();
 }
