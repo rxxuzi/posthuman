@@ -1,182 +1,182 @@
 {
-  "apple" : {
-    "type" : "O",
-    "time" : ["d"],
-    "class" : ["red","sweet","sphere"],
-    "japanese" : "リンゴ"
+  "apple": {
+    "type": "O",
+    "time": ["d", "w", "d"],
+    "feature": ["tropical", "hard", "sweet", "red", "sphere"],
+    "japanese": "リンゴ"
   },
-  "banana" : {
-    "type" : "E",
-    "time" : ["m", "y"],
-    "class" : ["yellow","sweet","cylinder","tropical"],
-    "japanese" : "バナナ"
+  "banana": {
+    "type": "E",
+    "time": ["m", "y", "y"],
+    "feature": ["tropical", "sweet", "cylinder", "round", "yellow"],
+    "japanese": "バナナ"
   },
-  "lemon" : {
-    "type" : "O",
-    "time" : ["d","w"],
-    "class" : ["yellow", "sour", "sphere", "citrus_fruits"],
-    "japanese" : "レモン"
+  "lemon": {
+    "type": "O",
+    "time": ["d", "w", "w"],
+    "feature": ["hard", "yellow", "sphere", "citrus_fruits", "sour"],
+    "japanese": "レモン"
   },
   "orange": {
     "type": "E",
     "time": ["d", "w", "m"],
-    "feature": ["orange", "sweet", "sphere", "citrus_fruits"],
+    "feature": ["sweet", "sphere", "orange", "citrus_fruits", "round", "sour"],
     "japanese": "オレンジ"
   },
   "pineapple": {
     "type": "O",
-    "time": ["m", "y"],
-    "feature": ["yellow", "sweet", "cylinder", "tropical"],
+    "time": ["m", "y", "w"],
+    "feature": ["tropical", "sweet", "cylinder", "round", "yellow"],
     "japanese": "パイナップル"
   },
   "grapefruit": {
     "type": "E",
-    "time": ["w", "m"],
-    "feature": ["pink", "bitter", "sphere", "citrus_fruits"],
+    "time": ["w", "m", "m"],
+    "feature": ["sphere", "bitter", "citrus_fruits", "pink", "sour"],
     "japanese": "グレープフルーツ"
   },
   "kiwi": {
     "type": "O",
-    "time": ["d", "w"],
-    "feature": ["green", "sweet", "small", "exotic"],
+    "time": ["d", "w", "d"],
+    "feature": ["tropical", "hard", "sweet", "green", "small", "exotic"],
     "japanese": "キウイ"
   },
   "blueberry": {
     "type": "E",
-    "time": ["d", "m"],
-    "feature": ["blue", "sweet", "small", "berry"],
+    "time": ["d", "m", "y"],
+    "feature": ["juicy", "hard", "sweet", "small", "berry", "blue"],
     "japanese": "ブルーベリー"
   },
   "mango": {
     "type": "O",
-    "time": ["m", "y"],
-    "feature": ["orange", "sweet", "tropical", "juicy"],
+    "time": ["m", "y", "w"],
+    "feature": ["juicy", "tropical", "sweet", "orange"],
     "japanese": "マンゴー"
   },
   "strawberry": {
     "type": "O",
-    "time": ["d", "m"],
-    "feature": ["red", "sweet", "small", "berry"],
+    "time": ["d", "m", "d"],
+    "feature": ["sweet", "small", "red", "berry", "round"],
     "japanese": "イチゴ"
   },
   "cherry": {
     "type": "E",
-    "time": ["d"],
-    "feature": ["red", "sweet", "small", "berry"],
+    "time": ["d", "m", "d"],
+    "feature": ["tropical", "sweet", "small", "red", "berry", "sour"],
     "japanese": "サクランボ"
   },
   "watermelon": {
     "type": "O",
-    "time": ["m", "y"],
-    "feature": ["green", "sweet", "large", "juicy"],
+    "time": ["m", "y", "y"],
+    "feature": ["large", "juicy", "sweet", "green", "soft"],
     "japanese": "スイカ"
   },
   "pear": {
     "type": "E",
     "time": ["d", "w", "m"],
-    "feature": ["green", "sweet", "juicy", "soft"],
+    "feature": ["juicy", "hard", "sweet", "green", "soft"],
     "japanese": "ナシ"
   },
   "plum": {
     "type": "O",
-    "time": ["d", "w"],
-    "feature": ["purple", "sweet", "small", "juicy"],
+    "time": ["d", "w", "d"],
+    "feature": ["juicy", "sweet", "small", "purple", "sour"],
     "japanese": "プラム"
   },
   "peach": {
     "type": "E",
-    "time": ["m"],
-    "feature": ["pink", "sweet", "juicy", "soft"],
+    "time": ["m", "y", "d"],
+    "feature": ["juicy", "soft", "sweet", "pink"],
     "japanese": "モモ"
   },
   "apricot": {
     "type": "O",
-    "time": ["d", "m"],
-    "feature": ["orange", "sweet", "small", "soft"],
+    "time": ["d", "m", "y"],
+    "feature": ["sweet", "small", "soft", "orange", "round", "sour"],
     "japanese": "アンズ"
   },
   "grapes": {
     "type": "E",
     "time": ["d", "w", "m"],
-    "feature": ["purple", "sweet", "small", "berry"],
+    "feature": ["sweet", "small", "soft", "berry", "purple", "sour"],
     "japanese": "ブドウ"
   },
   "raspberry": {
     "type": "O",
-    "time": ["d", "m"],
-    "feature": ["red", "sweet", "small", "berry"],
+    "time": ["d", "m", "d"],
+    "feature": ["sweet", "small", "berry", "red"],
     "japanese": "ラズベリー"
   },
   "blackberry": {
     "type": "E",
-    "time": ["d", "m"],
-    "feature": ["black", "sweet", "small", "berry"],
+    "time": ["d", "m", "d"],
+    "feature": ["black", "sweet", "small", "soft", "berry", "round"],
     "japanese": "ブラックベリー"
   },
   "fig": {
     "type": "O",
-    "time": ["d", "w"],
-    "feature": ["purple", "sweet", "small", "soft"],
+    "time": ["d", "w", "d"],
+    "feature": ["sweet", "small", "soft", "purple", "round"],
     "japanese": "イチジク"
   },
   "pomegranate": {
     "type": "E",
-    "time": ["m", "y"],
-    "feature": ["red", "sweet", "juicy", "seeded"],
+    "time": ["m", "y", "m"],
+    "feature": ["juicy", "sweet", "red", "soft", "seeded"],
     "japanese": "ザクロ"
   },
   "avocado": {
     "type": "O",
     "time": ["d", "w", "m"],
-    "feature": ["green", "savory", "soft", "tropical"],
+    "feature": ["tropical", "juicy", "hard", "green", "savory", "soft"],
     "japanese": "アボカド"
   },
   "dragonfruit": {
     "type": "E",
-    "time": ["m"],
-    "feature": ["pink", "sweet", "exotic", "seedy"],
+    "time": ["m", "y", "y"],
+    "feature": ["tropical", "seedy", "sweet", "soft", "pink", "exotic"],
     "japanese": "ドラゴンフルーツ"
   },
   "lychee": {
     "type": "O",
     "time": ["d", "w", "m"],
-    "feature": ["red", "sweet", "small", "tropical"],
+    "feature": ["tropical", "sweet", "small", "red", "sour"],
     "japanese": "ライチ"
   },
   "papaya": {
     "type": "E",
-    "time": ["m", "y"],
-    "feature": ["orange", "sweet", "tropical", "soft"],
+    "time": ["m", "y", "m"],
+    "feature": ["tropical", "juicy", "sweet", "soft", "orange", "sour"],
     "japanese": "パパイヤ"
   },
   "passionfruit": {
     "type": "O",
-    "time": ["d", "m"],
-    "feature": ["purple", "tart", "seedy", "tropical"],
+    "time": ["d", "m", "y"],
+    "feature": ["tropical", "seedy", "juicy", "tart", "soft", "purple"],
     "japanese": "パッションフルーツ"
   },
   "cantaloupe": {
     "type": "E",
-    "time": ["m"],
-    "feature": ["orange", "sweet", "juicy", "melon"],
+    "time": ["m", "d", "d"],
+    "feature": ["juicy", "hard", "sweet", "orange", "melon", "sour"],
     "japanese": "カンタロープ"
   },
   "guava": {
     "type": "O",
     "time": ["d", "w", "m"],
-    "feature": ["green", "sweet", "tropical", "soft"],
+    "feature": ["tropical", "sweet", "green", "soft"],
     "japanese": "グアバ"
   },
   "persimmon": {
     "type": "O",
-    "time": ["m", "y"],
-    "feature": ["orange", "sweet", "soft", "juicy"],
+    "time": ["m", "y", "d"],
+    "feature": ["juicy", "sweet", "soft", "orange", "sour"],
     "japanese": "柿"
   },
   "starfruit": {
     "type": "E",
     "time": ["d", "w", "m"],
-    "feature": ["yellow", "tart", "juicy", "tropical"],
+    "feature": ["tropical", "juicy", "tart", "round", "yellow"],
     "japanese": "スターフルーツ"
   }
 }
